@@ -1,0 +1,37 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7f8065;
+  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar__logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fcfbfa;
+}
+
+.navbar__liens {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Base — wipe defaults once here only */
+.navbar__liens a {
+  all: unset;
+  color: white;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+/* Hover + active share the same style */
+.navbar__liens a:hover,
+.navbar__liens a.lien--actif {
+  color: #19d3e0;
+  border-bottom: 2px solid #fdfdf9;
+  font-weight: bold;
+}

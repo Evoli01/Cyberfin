@@ -1,0 +1,13 @@
+.stats-bande {
+  margin-bottom: 1rem;
+}   
+
+.filtre {
+  margin-bottom: 1rem;
+}
+
+.filtre--actif {
+  font-weight: bold;
+  background-color: #8d35d4 ;
+  color: white ;
+}

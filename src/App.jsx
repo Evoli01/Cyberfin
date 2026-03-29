@@ -1,0 +1,23 @@
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Accueil from "./pages/Accueil";
+import Aquabot from "./pages/Aquabot";
+import Historique from "./pages/Historique";
+
+function App() {
+
+  return (
+    <div className="App">
+      <Navbar /> 
+      <main className="contenu">
+        <Routes>
+          <Route path="/" element={<Accueil />} />
+          <Route path="/aquabot" element={<Aquabot />} />
+          <Route path="/historique" element={<Historique />} />
+          <Route path="*" element={<h1>Dédicace à Fishy</h1>} />
+        </Routes>
+      </main> 
+    </div> 
+  );
+}
+export default App;
