@@ -39,12 +39,6 @@ function Accueil() {
             </div>
             <h1>Cyberfin</h1>
             <p>Auras-tu une bonne nageoire aujourd'hui?</p>
-      
-            <div className="grille-cartes">
-                {PERSONNAGES.map((personnage) => (
-                    <CartePersonnage key={personnage.id} personnage={personnage} />
-                ))}
-            </div>
 
             <div>  
                 <BoutonTirage onTirer={lancerTirage} />
