@@ -12,6 +12,9 @@ export function GachaProvider({ children }) {
     //PityCounter : nombre de tirage depuis le dernier légendaire
     const [pityCounter, setPityCounter] = useState(0);
 
+    //carte du jour : résultat du dernier tirage pour affichage sur accueil
+    const [carteDuJour, setCarteDuJour] = useState(null);
+
     //Charger depuis localstorage au démarrage
     useEffect(() => {
         const inventaireFromStorage = localStorage.getItem("inventaire");
@@ -19,8 +22,15 @@ export function GachaProvider({ children }) {
         const pityCounterFromStorage = localStorage.getItem("pityCounter");
 
         if (inventaireFromStorage) {setInventaire(JSON.parse(inventaireFromStorage));}
-        if (historiqueFromStorage) {setHistorique(JSON.parse(historiqueFromStorage));}
+        if (historiqueFromStorage) {
+            const historiqueParsed = JSON.parse(historiqueFromStorage);
+            setHistorique(historiqueParsed);
+            if (historiqueParsed[0].date == new Date().toISOString()) {
+                setCarteDuJour(historiqueParsed[0].personnage);
+            }
+        }
         if (pityCounterFromStorage) {setPityCounter(JSON.parse(pityCounterFromStorage));}
+
     }, []);
 
     //Sauvegarder inventaire dans localstorage à chaque changement
@@ -47,6 +57,7 @@ export function GachaProvider({ children }) {
         };
         setInventaire(prev => [...prev, personnage]);      
         setHistorique(prev => [...prev, entree]); // plus recent en premier
+        setCarteDuJour(personnage);
     };
 
     //statistique utiles
@@ -58,7 +69,7 @@ export function GachaProvider({ children }) {
     };
 
     return (
-        <GachaContext.Provider value={{inventaire, historique, ajouterTirage, stats, pityCounter, setPityCounter}}>
+        <GachaContext.Provider value={{inventaire, historique, ajouterTirage, stats, pityCounter, setPityCounter,carteDuJour}}>
             {children}
         </GachaContext.Provider>
     );

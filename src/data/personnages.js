@@ -2,10 +2,10 @@
 export const PERSONNAGES = [
     {
         id: 1,
-         nom: "Bugfish",
-          rarete : "Rare",
-           attaque: 60,
-           défense: 40,
+        nom: "Bugfish",
+        rarete : "Rare",
+        attaque: 60,
+        défense: 40,
     },
     {
         id: 2,

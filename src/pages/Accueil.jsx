@@ -7,7 +7,7 @@ import { useGacha } from '../context/GachaContext.jsx';
 
 function Accueil() {
     const [animation, setAnimation] = useState(false);
-    const { ajouterTirage, pityCounter, setPityCounter } = useGacha();
+    const { ajouterTirage, pityCounter, setPityCounter, carteDuJour} = useGacha();
     
     const lancerTirage = () => {
         setAnimation(true);
@@ -51,13 +51,13 @@ function Accueil() {
   
             </div>
 
-            {/* Affichage de la carte du jour avec animation 
+            {/* Affichage de la carte du jour avec animation */}
             {carteDuJour && !animation  && (
                 <div className="resultat">
                     <h2> Vous avez pêché: </h2>
                     <CartePersonnage personnage={carteDuJour} estNouveau={true} />
                 </div>
-            )}*/}
+            )}
         </div>
     );
 }
