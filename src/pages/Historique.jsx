@@ -19,7 +19,7 @@ function Historique() {
                 <p className="vide">Feignant tu n'a rien fait ! Vas pêcher! </p>
             ) : (
                 <ul className= "historique-liste">
-                    {historique.map(entree => (
+                    {historique.sort((a,b)=> new Date(b.date) - new Date(a.date)).map(entree => (
                         <li key={entree.id} className="historique-entree">
                             <span className="historique-nom">{entree.personnage.nom}</span>
                             <span className="historique-date">{formatDate(entree.date)}</span>

@@ -25,7 +25,7 @@ export function GachaProvider({ children }) {
         if (historiqueFromStorage) {
             const historiqueParsed = JSON.parse(historiqueFromStorage);
             setHistorique(historiqueParsed);
-            if (historiqueParsed[0].date == new Date().toISOString()) {
+            if (historiqueParsed.length >0 && historiqueParsed[0].date == new Date().toISOString()) {
                 setCarteDuJour(historiqueParsed[0].personnage);
             }
         }

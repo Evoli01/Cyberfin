@@ -1,8 +1,8 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { tirage } from '../utils/tirage';
 import CartePersonnage from '../components/CartePersonnage';
 import BoutonTirage from '../components/BoutonTirage';
-import { PERSONNAGES, PITY_MAX } from "../data/personnages.js";
+import {PITY_MAX } from "../data/personnages.js";
 import { useGacha } from '../context/GachaContext.jsx';
 
 function Accueil() {
