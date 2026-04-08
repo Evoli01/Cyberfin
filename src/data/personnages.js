@@ -37,7 +37,7 @@ export const PERSONNAGES = [
     },
 ];
 // probabilité par rarete
-export const PROBALITIES = {
+export const PROBABILITIES = {
     Légendaire: 1,
     Rare: 35,
     Commun: 50,

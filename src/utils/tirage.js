@@ -1,4 +1,4 @@
-import { PERSONNAGES, PROBALITIES, PITY_MAX} from "../data/personnages.js";
+import { PERSONNAGES, PROBABILITIES, PITY_MAX} from "../data/personnages.js";
 
 //Étape 1 :determine la rarete selon la probabilité
 const determinerRarete = (pityCounter) => {
@@ -11,7 +11,7 @@ const determinerRarete = (pityCounter) => {
     // on parcourt les raretés par ordre de rareté décroissante
     const ordreRarete = ["Légendaire", "Rare", "Commun"];
     for (const rarete of ordreRarete) {
-        cumul += PROBALITIES[rarete];
+        cumul += PROBABILITIES[rarete];
         if (jet <= cumul) {
             return rarete;
         }

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useGacha } from "../context/GachaContext";
 import CartePersonnage from "../components/CartePersonnage";
-import "./Aquabot.css";
 import { PERSONNAGES } from "../data/personnages";
+import { PROBABILITIES } from "../data/personnages";
+import "./Aquabot.css";
+
+
 
 const RARETE_OPTIONS = ["Tous", "Légendaire", "Rare", "Commun"];
 
@@ -33,7 +36,7 @@ function Aquabot () {
             {/*stats*/}
             <div className="stats-bande">
                 <span>Total collecté: {stats.total} </span><br />
-                <span>Légendaires: {stats.legedaire} </span><br />
+                <span>Légendaires: {stats.legendaire} </span><br /> 
                 <span>Rares: {stats.rare} </span><br /> 
                 <span>Communes: {stats.commune} </span>
             </div>
@@ -58,6 +61,14 @@ function Aquabot () {
                 ))}
             </div>
 
+            <div className="compteur-carte-decouverte"> 
+                {possedes ? (
+                    <p> {cartesFiltrees.length} mécafishies découverts / {PERSONNAGES.length} mécafishies !</p>
+                ) : (
+                    <p> {personnagesFiltrees.length} mécafishies au total </p>
+                )}
+            </div>
+
             {/*grille des cartes*/}
             {possedes ?
                     cartesFiltrees.length === 0 ? (
@@ -80,6 +91,14 @@ function Aquabot () {
                         </div>
                     )
             }
+            <div className="probabilite-rarete">
+                <h2>Probabilités de pêche</h2>
+                <ul class="liste-sans-puce">
+                    <li>Légendaire : {PROBABILITIES.Légendaire}%</li>
+                    <li>Rare : {PROBABILITIES.Rare}%</li>
+                    <li>Commun : {PROBABILITIES.Commun}%</li>
+                </ul>
+            </div>
         </div>
     );
 }

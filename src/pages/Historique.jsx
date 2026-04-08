@@ -1,4 +1,5 @@
 import { useGacha } from "../context/GachaContext";
+import "./Historique.css";
 
 function Historique() {
     const { historique } = useGacha();
@@ -18,10 +19,10 @@ function Historique() {
             {historique.length === 0 ? (
                 <p className="vide">Feignant tu n'a rien fait ! Vas pêcher! </p>
             ) : (
-                <ul className= "historique-liste">
+                <ul className= "historique-liste liste-sans-puce">
                     {historique.sort((a,b)=> new Date(b.date) - new Date(a.date)).map(entree => (
                         <li key={entree.id} className="historique-entree">
-                            <span className="historique-nom">{entree.personnage.nom}</span>
+                            <span className="historique-nom">{entree.personnage.nom} : </span>
                             <span className="historique-date">{formatDate(entree.date)}</span>
                         </li>
                     ))}

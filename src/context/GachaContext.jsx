@@ -63,9 +63,9 @@ export function GachaProvider({ children }) {
     //statistique utiles
     const stats = {
         total: historique.length,
-        legedaire: inventaire.filter(p => p.rarete === "légendaire").length,
-        rare: inventaire.filter(p => p.rarete === "rare").length,
-        commune: inventaire.filter(p => p.rarete === "commune").length,
+        legendaire: inventaire.filter(p => p.rarete === "Légendaire").length,
+        rare: inventaire.filter(p => p.rarete === "Rare").length,
+        commune: inventaire.filter(p => p.rarete === "Commun").length,
     };
 
     return (

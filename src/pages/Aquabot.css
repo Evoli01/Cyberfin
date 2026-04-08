@@ -11,3 +11,7 @@
   background-color: #8d35d4 ;
   color: white ;
 }
+
+ul.liste-sans-puce {
+  list-style-type: none;
+}
