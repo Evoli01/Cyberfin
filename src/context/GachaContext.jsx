@@ -14,19 +14,36 @@ export function GachaProvider({ children }) {
 
     //carte du jour : résultat du dernier tirage pour affichage sur accueil
     const [carteDuJour, setCarteDuJour] = useState(null);
+    
+    //Compteur de Bulles (monaie du jeu)
+    const [bulles, setBulles] = useState(0);
 
     //Charger depuis localstorage au démarrage
     useEffect(() => {
         const inventaireFromStorage = localStorage.getItem("inventaire");
         const historiqueFromStorage = localStorage.getItem("historique");
         const pityCounterFromStorage = localStorage.getItem("pityCounter");
+        const bullesFromStorage = localStorage.getItem("bulles");
+            if (bullesFromStorage) {setBulles(JSON.parse(bullesFromStorage));}
 
-        if (inventaireFromStorage) {setInventaire(JSON.parse(inventaireFromStorage));}
+        if (inventaireFromStorage) {
+            const inventaireParsed = JSON.parse(inventaireFromStorage);
+            const inventaireMiseAJour = inventaireParsed.map( carteSauvegardee => {
+                const carteActuelle = PERSONNAGES.find(p => p.id === carteSauvegardee.id);
+                return carteActuelle || carteSauvegardee; // si le personnage a été mis à jour dans data, on prend la nouvelle version, sinon on garde l'ancienne
+            });
+            setInventaire(inventaireMiseAJour);
+        };
+
         if (historiqueFromStorage) {
             const historiqueParsed = JSON.parse(historiqueFromStorage);
-            setHistorique(historiqueParsed);
-            if (historiqueParsed.length >0 && historiqueParsed[0].date == new Date().toISOString()) {
-                setCarteDuJour(historiqueParsed[0].personnage);
+            const historiqueMiseAJour = historiqueParsed.map( entree => ({
+                ...entree,
+                personnage: PERSONNAGES.find(p => p.id === entree.personnage.id) || entree.personnage
+            }));
+            setHistorique(historiqueMiseAJour);
+            if (historiqueMiseAJour.length >0 && historiqueMiseAJour[0].date == new Date().toISOString()) {
+                setCarteDuJour(historiqueMiseAJour[0].personnage);
             }
         }
         if (pityCounterFromStorage) {setPityCounter(JSON.parse(pityCounterFromStorage));}
@@ -47,6 +64,11 @@ export function GachaProvider({ children }) {
     useEffect(() => {
         localStorage.setItem("pityCounter", JSON.stringify(pityCounter));
     }, [pityCounter]);
+
+    //sauvegarder les bulles dans localstorage à chaque changement
+    useEffect(() => {
+        localStorage.setItem("bulles", JSON.stringify(bulles));
+    }, [bulles]);
 
     //ajouter un tirage depuis accueil
     const ajouterTirage = (personnage) => {
@@ -69,7 +91,7 @@ export function GachaProvider({ children }) {
     };
 
     return (
-        <GachaContext.Provider value={{inventaire, historique, ajouterTirage, stats, pityCounter, setPityCounter,carteDuJour}}>
+        <GachaContext.Provider value={{inventaire, historique, ajouterTirage, stats, pityCounter, setPityCounter,carteDuJour, bulles, setBulles}}>
             {children}
         </GachaContext.Provider>
     );

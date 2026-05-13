@@ -66,6 +66,11 @@ function BoutonTirage( {onTirer} ) {
     onTirer(); //déclencher le tirage dans le composant parent
   };
 
+  const handleTirer5 = () => {
+    if (!peutTirer) return;
+    onTirer(5); //tirer 5 cartes d'un coup
+  }; 
+  
   return (
     <div className = "bouton-tirage"> 
       <button
@@ -74,6 +79,13 @@ function BoutonTirage( {onTirer} ) {
         className={ peutTirer ? "btn--actif" : "btn--inactive" }
       >
         {peutTirer ? "Tirer ma carte du jour" : "⏳ Déjà tiré aujourd'hui"}
+      </button>
+      <button
+        onClick={handleTirer5}
+        disabled={!peutTirer}
+        className={ peutTirer ? "btn--actif" : "btn--inactive" }
+      >
+        {peutTirer ? "Tirer 5 cartes" : "⏳ Déjà tiré aujourd'hui"}
       </button>
       {tempsRestant && (
         <p className="timer">Prochain tirage dans : {tempsRestant} </p>

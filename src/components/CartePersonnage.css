@@ -8,9 +8,28 @@
   cursor: pointer;
 }
 
+.carte--mini.carte--ouverte:hover {
+  transform: scale(1.4);
+}
 .carte:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 24px var(--couleur-rarete);
+}
+
+
+/*description masquée par defaut en mode mini*/
+.carte--mini .carte__description {
+  display: none;
+}
+/* quannd carte ouverte: agrandir*/
+.carte--ouverte {
+  transform: scale(1.4);
+  z-index: 10;
+  transition: transform 0.2s;
+}
+/* carte ouverte: description visible*/
+.carte--ouverte.carte--ouverte .carte__description {
+  display: block;
 }
 
 .carte--légendaire { background: linear-gradient(135deg, #f0e15d, #4d472b); }
@@ -85,4 +104,16 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
+}
+
+.carte__copies {
+    position: absolute;
+    top : 2px;
+    right: 2px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border-radius: 500px;
+    padding: 1px 5px;
+    font-size: 0.75rem;
+    font-weight: bold;
 }

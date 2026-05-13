@@ -13,12 +13,15 @@ const RARETE_OPTIONS = ["Tous", "Légendaire", "Rare", "Commun"];
 function Aquabot () {
     const { inventaire, stats } = useGacha();
     const [filtre, setFiltre] = useState("Tous");
+    const [carteOuverteID, setCarteOuverteID] = useState(null); //id de la carte ouverte
     const [possedes, setPossedes] = useState(true); //true = que les possédés, false = tous les personnages
 
     //Dédoublonner l'inventaire pour n'avoir que les personnages uniques
     const carteUniques = inventaire.filter(
         (p, index, self) => self.findIndex(c => c.id === p.id) === index
     );
+
+    const compterCopies = (id) => inventaire.filter(p => p.id === id).length;
 
     const cartesFiltrees = filtre === "Tous" 
     ? carteUniques 
@@ -76,7 +79,8 @@ function Aquabot () {
                     ) : (
                         <div className="grille-cartes">
                             {cartesFiltrees.map(p => (
-                                <CartePersonnage key={p.id} personnage={p} tailleMini={true} />
+                                <CartePersonnage key={p.id} personnage={p} tailleMini={true} copies={compterCopies(p.id)} 
+                                    carteOuverteID={carteOuverteID} setCarteOuverteID={setCarteOuverteID} />
                             ))}
                         </div>
                     )

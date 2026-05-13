@@ -1,0 +1,64 @@
+/* La zone de combat : 2 combattant cote a cote*/ 
+.combat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 2rem;
+}
+
+/*chaque combattant carte + barre de vie en colonne*/
+.combattant {
+    display: flex;
+    flex-direction: column;
+    align-items : center;
+    gap : 0.5rem;
+    width : 200px;
+}
+
+/*conteneur de la barre fond gris*/ 
+.barre-pv{
+    width : 100%;
+    height: 12px;
+    background : #333;
+    border-radius : 6px;
+    overflow: hidden; /*cache ce qui deépasse*/  
+}
+
+/*remplissage barre pv*/ 
+.barre-pv div {
+    height : 12px;
+    background: #4caf50;
+    transition: width 0.8s;
+    border-radius: 6px;
+}
+
+@keyframes attaque {
+    0% {transform: translateX(0);}
+    50% {transform: translateX(30px);}
+    100% {transform: translateX(0);}
+}
+
+@keyframes touche {
+    0%   { transform: translateX(0);     box-shadow: none; }
+    25%  { transform: translateX(-10px); box-shadow: 0 0 25px 8px red; }
+    75%  { transform: translateX(10px);  box-shadow: none; }
+    100% { transform: translateX(0);     box-shadow: none; }
+}
+
+.carte--attaque {
+    animation: attaque 0.8s ease;
+}
+
+.carte--touche{
+    animation : touche 0.8s ease;
+}
+@keyframes apparaitre {
+    from { opacity: 0; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(-10px); }
+}
+
+.degats-texte {
+    opacity: 0;
+    animation: apparaitre 0.3s ease 0.5s forwards;
+    /* 0.3s = durée | 0.5s = délai avant d'apparaître | forwards = reste visible */
+}
