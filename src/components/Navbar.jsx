@@ -21,6 +21,9 @@ function Navbar() {
             <NavLink to="/historique" className={({isActive}) => isActive ? "lien--actif" : "lien--inactif"} >
             🕒 Historique
             </NavLink>
+            <NavLink to ="/Exploration" className = {({isActive}) => isActive ? "lien--actif" : "lien--inactif"} >
+            📜 Exploration
+            </NavLink>
         </div>
     </nav>
   );

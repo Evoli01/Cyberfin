@@ -32,7 +32,7 @@
   display: block;
 }
 
-.carte--légendaire { background: linear-gradient(135deg, #f0e15d, #4d472b); }
+.carte--legendaire { background: linear-gradient(135deg, #f0e15d, #4d472b); }
 .carte--rare       { background: linear-gradient(135deg, #901adf, #4a304d); }
 .carte--commun     { background: linear-gradient(135deg, #b1b4b4, #3b3b3f); }
 
@@ -74,6 +74,7 @@
 .carte__nom {
     margin: 0.5rem 0 0.25rem;
     font-size : 1.2rem;
+    min-height: 3.4rem;
 }
 
 .stat {

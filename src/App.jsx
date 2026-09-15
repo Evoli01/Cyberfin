@@ -4,6 +4,7 @@ import Accueil from "./pages/Accueil";
 import Aquabot from "./pages/Aquabot";
 import Historique from "./pages/Historique";
 import Arenaplouf from "./pages/Arenaplouf";
+import Exploration from "./pages/Exploration";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path= "/Arenaplouf" element ={<Arenaplouf />} />
           <Route path="/aquabot" element={<Aquabot />} />
           <Route path="/historique" element={<Historique />} />
+          <Route path="/Exploration" element = {<Exploration />} />
           <Route path="*" element={<h1>Dédicace à Fishy</h1>} />
         </Routes>
       </main> 

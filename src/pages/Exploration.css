@@ -1,0 +1,25 @@
+.carte-exploration{
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 27px);
+    background: #a2b103;
+}
+
+.marqueur-pnj{
+    position: absolute;
+
+}
+
+.bouton-equipe{
+    position:fixed;
+    top:2rem;
+    left:3%;
+    z-index: 10;
+}
+
+.boite-dialogue {
+    position: absolute;
+    bottom: 2rem;
+    left: 5%;
+    right: 5%;
+}
