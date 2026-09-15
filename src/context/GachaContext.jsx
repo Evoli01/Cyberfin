@@ -9,7 +9,7 @@ export function GachaProvider({ children }) {
     //historique : tout tirages avec date
     const [historique, setHistorique] = useState([]);
 
-    //PityCounter : nombre de tirage depuis le dernier légendaire
+    //PityCounter : nombre de tirage depuis le dernier legendaire
     const [pityCounter, setPityCounter] = useState(0);
 
     //carte du jour : résultat du dernier tirage pour affichage sur accueil
@@ -85,7 +85,7 @@ export function GachaProvider({ children }) {
     //statistique utiles
     const stats = {
         total: historique.length,
-        legendaire: inventaire.filter(p => p.rarete === "Légendaire").length,
+        legendaire: inventaire.filter(p => p.rarete === "legendaire").length,
         rare: inventaire.filter(p => p.rarete === "Rare").length,
         commune: inventaire.filter(p => p.rarete === "Commun").length,
     };

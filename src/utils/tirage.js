@@ -2,14 +2,14 @@ import { PERSONNAGES, PROBABILITIES, PITY_MAX} from "../data/personnages.js";
 
 //Étape 1 :determine la rarete selon la probabilité
 const determinerRarete = (pityCounter) => {
-    //si compteurpity >= PITY alors on garantie un légendaire
+    //si compteurpity >= PITY alors on garantie un legendaire
     if (pityCounter >= PITY_MAX)
-        return "Légendaire";
+        return "legendaire";
     const jet = Math.random() * 100;
     let cumul = 0;
 
     // on parcourt les raretés par ordre de rareté décroissante
-    const ordreRarete = ["Légendaire", "Rare", "Commun"];
+    const ordreRarete = ["legendaire", "Rare", "Commun"];
     for (const rarete of ordreRarete) {
         cumul += PROBABILITIES[rarete];
         if (jet <= cumul) {
@@ -30,8 +30,8 @@ export const tirage = (pityCounter) => {
     const rarete = determinerRarete(pityCounter);
     const personnage = tirerPersonnage(rarete);
 
-    //Si légendaire est tiré, on reset le pity counter
-    const nouveauPity = rarete === "Légendaire" ? 0 : pityCounter + 1;
+    //Si legendaire est tiré, on reset le pity counter
+    const nouveauPity = rarete === "legendaire" ? 0 : pityCounter + 1;
 
     return {personnage, nouveauPity};
 };

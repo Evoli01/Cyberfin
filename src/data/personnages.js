@@ -6,7 +6,7 @@ export const PERSONNAGES = [
         rarete : "Rare",
         pv : 100,
         attaque: 60,
-        défense: 40,
+        defense: 40,
         emoji: "🐟",
         couleur: "#901adf",
         description: "Un poisson plein de bug mais attachiant !"
@@ -17,7 +17,7 @@ export const PERSONNAGES = [
         rarete : "Commun",
         pv : 80,
         attaque: 50,
-        défense: 10,
+        defense: 10,
         emoji: "🦈",
         couleur: "#b1b4b4",
         description: "Une raie pleine de ressources!"
@@ -29,7 +29,7 @@ export const PERSONNAGES = [
         rarete : "Commun",
         pv : 80,
         attaque: 50,
-        défense: 10,
+        defense: 10,
         emoji: "🐙",
         couleur: "#b1b4b4",
         description: "L'Insolourdo des mécafichies !"
@@ -37,10 +37,10 @@ export const PERSONNAGES = [
     {
         id: 4,
         nom: "Narvalve hydrolique",
-        rarete : "Légendaire",
+        rarete : "legendaire",
         pv : 120,
         attaque: 75,
-        défense: 55,
+        defense: 55,
         emoji: "🐋",
         couleur: "#4d472b",
         description: "Le robocops des narvales !"
@@ -52,17 +52,28 @@ export const PERSONNAGES = [
         rarete : "Rare",
         pv : 100,
         attaque: 60,
-        défense: 40,
+        defense: 40,
         emoji: "🐬",
         couleur: "#901adf",
         description: "Une baleine joyeuse et sociable !"
     },
+    {
+        id: 6,
+        nom: "Raie-Métane",
+        rarete: "Rare",
+        pv : 100,
+        attaque : 60,
+        defense : 40,
+        emoji : "🦋",
+        couleur : "#901adf",
+        description: "Mignonne, ronde... et armée jusqu'aux ailes.",
+    },
 ];
 // probabilité par rarete
 export const PROBABILITIES = {
-    Légendaire: 1,
+    legendaire: 1,
     Rare: 35,
     Commun: 50,
 };
-// Pity = nombre de tirage qui garantie le légendaire
+// Pity = nombre de tirage qui garantie le legendaire
 export const PITY_MAX = 20;

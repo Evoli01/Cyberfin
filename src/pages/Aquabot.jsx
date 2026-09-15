@@ -7,7 +7,7 @@ import "./Aquabot.css";
 
 
 
-const RARETE_OPTIONS = ["Tous", "Légendaire", "Rare", "Commun"];
+const RARETE_OPTIONS = ["Tous", "legendaire", "Rare", "Commun"];
 
 
 function Aquabot () {
@@ -39,7 +39,7 @@ function Aquabot () {
             {/*stats*/}
             <div className="stats-bande">
                 <span>Total collecté: {stats.total} </span><br />
-                <span>Légendaires: {stats.legendaire} </span><br /> 
+                <span>legendaires: {stats.legendaire} </span><br /> 
                 <span>Rares: {stats.rare} </span><br /> 
                 <span>Communes: {stats.commune} </span>
             </div>
@@ -98,7 +98,7 @@ function Aquabot () {
             <div className="probabilite-rarete">
                 <h2>Probabilités de pêche</h2>
                 <ul class="liste-sans-puce">
-                    <li>Légendaire : {PROBABILITIES.Légendaire}%</li>
+                    <li>legendaire : {PROBABILITIES.legendaire}%</li>
                     <li>Rare : {PROBABILITIES.Rare}%</li>
                     <li>Commun : {PROBABILITIES.Commun}%</li>
                 </ul>

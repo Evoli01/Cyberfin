@@ -57,7 +57,7 @@ function Accueil() {
                     />
                 </div>
                 {pityCounter >= 18 && (
-                    <p className="pity-alert">⚡Légendaire très proche !</p>
+                    <p className="pity-alert">⚡legendaire très proche !</p>
                 )}
             </div>
             <h1>Cyberfin</h1>
