@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {useGacha} from "../context/GachaContext"
 import {simulerDuel} from "../utils/Duel";
-import {simulerMelee} from "../utils/Duel";
+import CombatMelee from "../components/CombatMelee";
 import { PERSONNAGES } from "../data/personnages";
 import CartePersonnage from "../components/CartePersonnage";
 import "./Arenaplouf.css";
@@ -32,7 +32,7 @@ function Arenaplouf() {
     }
 
     useEffect(()=>{
-        if (phase !== "combat") return;
+        if (phase !== "combat" || mode !=="joute") return;
         if (!resultat) return;
          if (roundActuel >= resultat.rounds.length) {
             setBulles(prev => prev + resultat.bullesGagnees);
@@ -71,27 +71,16 @@ function Arenaplouf() {
     }
     const lancerMelee = () =>{
         const adversaires = genererEquipeAdverse();
-        const resultatMelee = simulerMelee(equipeJoueur, adversaires); 
         setEquipeAdverse(adversaires);
-        setResultat (resultatMelee);
-        setRoundActuel (-1);
         setPhase("preparation");
         setTimeout(() => setPhase("combat"),2000)
     };
 
-    const trouverCombattant = (id) => {
-        if (!snapshot) return null;
-        return snapshot.combattants.find(c => c.id === id);
-    };
-
-    const classeAnimation = (id) => {
-        if (!snapshot) return "";
-        const aEteTouche = snapshot.attaques.some(a => a.cibleId === id);
-        const aAttaque = snapshot.attaques.some(a => a.attaquantId === id);
-        if (aEteTouche) return "carte--touche";
-        if (aAttaque) return "carte--attaque";
-        return "";
-    };
+    const gererFinMelee =( resultatFinal) =>{
+        setBulles(prev => prev + resultatFinal.bullesGagnees);
+        setResultat(resultatFinal);
+        setPhase ("resultat");
+    }
 
     return (
         <div className="page-arenaplou" >
@@ -193,53 +182,13 @@ function Arenaplouf() {
                 </div>
             </div>
         )}
-        {phase === "combat" && mode === "melee" && resultat && (
-            <div className = "combat-melee">
-                {/*Joueur*/}
-                <div className = "equipe">
-                    {equipeJoueur.map ((perso,index) => {
-                        const id = `joueur -${index}`;
-                        const etat = trouverCombattant(id);
-                        const pvActuel = etat ? etat.pv : perso.pv;
-                        const estMort = etat ? !etat.vivant : false;
-                        return (
-                            <div className = "combattant" key={id}>
-                                <div key={`${id}-${roundActuel}`} className={classeAnimation(id)}>
-                                    <CartePersonnage personnage={perso} tailleMini={true}/>
-                                </div>
-                                <div className="ligne-vie">
-                                    <div className="barre-pv">
-                                        <div style={{width : `${(pvActuel/perso.pv)*100}%`}}/>
-                                    </div>
-                                        {estMort && <p className="emoji-mort">💀</p>}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-                {/*Adversaire*/}
-                     <div className = "equipe equipe--adversaire">
-                    {equipeAdverse.map ((perso,index) => {
-                        const id = `bot -${index}`;
-                        const etat = trouverCombattant(id);
-                        const pvActuel = etat ? etat.pv : perso.pv;
-                        const estMort = etat ? !etat.vivant : false;
-                      return (
-                            <div className = "combattant" key={id}>
-                                <div key={`${id}-${roundActuel}`} className={classeAnimation(id)}>
-                                    <CartePersonnage personnage={perso} tailleMini={true}/>
-                                </div>
-                                <div className="ligne-vie">
-                                    <div className="barre-pv">
-                                        <div style={{width : `${(pvActuel/perso.pv)*100}%`}}/>
-                                    </div>
-                                        {estMort && <p className="emoji-mort">💀</p>}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>    
+        {phase === "combat" && mode === "melee" && (
+            <CombatMelee
+                equipeJoueur={equipeJoueur}
+                equipeAdverse={equipeAdverse}
+                vitesseRapide={vitesseRapide}
+                onTermine={gererFinMelee}
+            />
         )}
 
         {/*resultat*/} 
