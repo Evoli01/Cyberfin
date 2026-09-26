@@ -4,11 +4,12 @@ export const MAPS = [
     {
         id: 1,
         nom: "Citronnelle",
+        image : "/maps/citronelle.png",
         pnjs: [ 
             {
                 id: 1,
                 nom: "Amiral",
-                position: {x: 30, y: 20},
+                position: {x: 38, y: 48},
                 equipe: [PERSONNAGES.find(p => p.nom === "Bloupcoups")],
                 dialogue: {
                     debut : {
@@ -42,6 +43,24 @@ export const MAPS = [
                     quitter: {
                         texte: "T'en fais pas, Citronnelle ne va pas s'enfuir, prends ton temps.",
                         fin : true
+                    },
+                    victoire: {
+                        texte:"bien joué, tu peux maintenant entrer à Citronelle",
+                        suivant : "victoire2",
+                    },
+                    victoire2: {
+                        texte : "As-tu des question ?",
+                        choix : [
+                            {texte: "La vie est elle agréable ici ?", suivant: "parler"},
+                            {texte: "Pas tout à fais...", suivant: "quitter"},
+                        ]
+                    },
+                    defaite: {
+                        texte: "Dommage... Veux tu réessayer?",
+                        choix: [
+                            { texte: "Oui !", suivant: "accepte"},
+                            { texte: "Non...", suivant: "quitter"},
+                        ]
                     }
                 }
             },

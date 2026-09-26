@@ -1,5 +1,6 @@
 import {useState,useEffect} from "react";
 import {useGacha} from "../context/GachaContext";
+import CombatMelee from "../components/CombatMelee";
 import CartePersonnage from "../components/CartePersonnage";
 import "./Exploration.css";
 import {MAPS} from "../data/maps";
@@ -11,7 +12,9 @@ function Exploration() {
     const {inventaire} = useGacha();
     const [emplacementEnEdition, setEmplacementEnEdition]=useState(null);
     const [pnjActif,setPnjActif] = useState(null);
-    const [noeudActuel,setNoeudActuel]=useState("debut")
+    const [noeudActuel,setNoeudActuel]=useState("debut");
+    const [enCombat,setEnCombat]=useState(false);
+    const [vitesseRapide, setVitesseRapide] = useState(false);
     const mapActuelle = MAPS[0];
     
     useEffect(() =>{
@@ -40,14 +43,18 @@ function Exploration() {
     )
 
     const avancerDialogue = (idSuivant) => {
-    if (idSuivant === "combat") {
+        if (idSuivant === "combat") {
         // TODO : on gérera le déclenchement du combat à l'étape suivante
-        console.log("Combat à venir !");
-    } else {
-        setNoeudActuel(idSuivant);
+            return setEnCombat(true);
+        } else {
+            setNoeudActuel(idSuivant);
+        }
+    };
+    
+    const gererFinCombat = (resultat) => {
+        setEnCombat(false);
+        setNoeudActuel(resultat.gagnant === "joueur" ? "victoire" : "defaite");
     }
-};
-
 
  return(
     <div>
@@ -83,42 +90,55 @@ function Exploration() {
                  ))} 
             </div>
         }
-        <button className="bouton-equipe" onClick={()=> setAfficherEquipe(!afficherEquipe)}>Equipe</button> 
-        <div className="carte-exploration">
-            {mapActuelle.pnjs.map(pnj=>(
-                <div
-                    key={pnj.id}
-                    className="marqueur-pnj"
-                    style={{ left : `${pnj.position.x}%`, top:`${pnj.position.y}%`}}
-                    onClick={()=>{
-                        setPnjActif(pnj);
-                        setNoeudActuel("debut");
-                    }}
-                >
-                    {pnj.nom}
+        <button className="bouton-equipe" onClick={()=> setAfficherEquipe(!afficherEquipe)}>Equipe</button>
+        <div className="scene-exploration">
+            <div className="scene-exploration__flou" style={{ backgroundImage:`url(${mapActuelle.image})`}}> </div>
+            <div className = "carte-exploration">
+                <img className="carte-exploration__nette" src={mapActuelle.image} alt={mapActuelle.nom}/>
+                {mapActuelle.pnjs.map(pnj=>(
+                    <div
+                        key={pnj.id}
+                        className="marqueur-pnj"
+                        style={{ left : `${pnj.position.x}%`, top:`${pnj.position.y}%`}}
+                        onClick={()=>{
+                            setPnjActif(pnj);
+                            setNoeudActuel("debut");
+                        }}
+                    >
+                        {pnj.nom}
+                    </div>
+                ))}
+                {pnjActif && !enCombat && (
+                <div className="boite-dialogue">
+                    <p>{pnjActif.dialogue[noeudActuel].texte}</p>
+
+                    {pnjActif.dialogue[noeudActuel].choix && (
+                        pnjActif.dialogue[noeudActuel].choix.map((option,i)=>(
+                            <button key={i} onClick = {()=> avancerDialogue(option.suivant)}>
+                                {option.texte}
+                            </button>
+                        ))
+                    )}
+
+                    {pnjActif.dialogue[noeudActuel].fin && (
+                        <button onClick={()=>setPnjActif(null)}> fermer </button>
+                    )}
+
+                    {pnjActif.dialogue[noeudActuel].suivant && !pnjActif.dialogue[noeudActuel].choix&& (
+                        <button onClick = {()=> avancerDialogue(pnjActif.dialogue[noeudActuel].suivant)}>Suivant</button>
+                    )}
                 </div>
-            ))}
-            {pnjActif && (
-            <div className="boite-dialogue">
-                <p>{pnjActif.dialogue[noeudActuel].texte}</p>
+            )}
 
-                {pnjActif.dialogue[noeudActuel].choix && (
-                    pnjActif.dialogue[noeudActuel].choix.map((option,i)=>(
-                        <button key={i} onClick = {()=> avancerDialogue(option.suivant)}>
-                            {option.texte}
-                        </button>
-                    ))
-                )}
-
-                {pnjActif.dialogue[noeudActuel].fin && (
-                    <button onClick={()=>setPnjActif(null)}> fermer </button>
-                )}
-
-                {pnjActif.dialogue[noeudActuel].suivant && !pnjActif.dialogue[noeudActuel].choix&& (
-                    <button onClick = {()=> avancerDialogue(pnjActif.dialogue[noeudActuel].suivant)}>Suivant</button>
-                )}
-            </div>
-         )}
+            {enCombat && (
+                <CombatMelee
+                    equipeJoueur={equipeActive.filter( p=> p !== null)}
+                    equipeAdverse={pnjActif.equipe}
+                    vitesseRapide={vitesseRapide}
+                    onTermine={gererFinCombat}
+                />
+            )}
+        </div>
         </div>
     </div>
  )};
