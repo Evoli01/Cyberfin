@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Fichier brouillon pour les exercices d'apprentissage
+src/pages/exercice.jsx
