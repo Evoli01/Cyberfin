@@ -1,20 +1,33 @@
-.scene-exploration {
-    position: relative;
-    width: 100%;
-    height: calc(100vh - 27px);
-    overflow: hidden;
+.badge-dialogue {
+    position: absolute;
+    top: -28px;
+    left: 0;
+    width: 150px;
+    height: 28px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 12px;
+    background: #a35302;
+    color: white;
+    font-size: 0.8rem;
+    line-height: 1;
+    clip-path: path("M6,0 L94,0 Q100,0 106,4 L142,24 Q150,28 142,28 L0,28 L0,6 Q0,0 6,0 Z");
+}
+.boite-dialogue {
+    position: absolute;
+    color : black;
+    background: rgba(222, 215, 159, 0.8);
+    font-weight: bold;
+    bottom: 1.1rem;
+    left: 5%;
+    right: 5%;
 }
 
-.scene-exploration__flou {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    filter: blur(30px);
-    transform: scale(1.1);
+.bouton-equipe{
+    position:fixed;
+    top:2rem;
+    left:3%;
+    z-index: 30;
 }
 
 .carte-exploration {
@@ -31,23 +44,149 @@
     height: auto;
 }
 
+.carte-exploration__nette--secousse {
+    animation: secousse 0.4s;
+}
+
+.combat-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flocon {
+    position: absolute;
+    top: -10px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.85;
+    animation-name: tomber;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.lueur-yeux {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: red;
+    box-shadow: 0 0 20px 8px red;
+    animation: lueurYeux 6s forwards;
+}
+
+
+
+.grille-equipe {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+.icone_pnj_map {
+    width: 200px;
+    height : auto;
+}
+
 .marqueur-pnj{
     position: absolute;
     color: black;
     text-shadow: 0 0 4px rgba(255,255,255,0.8);
     cursor: pointer;
+    transform: translate(-50%, -50%);
 }
 
-.bouton-equipe{
-    position:fixed;
-    top:2rem;
-    left:3%;
+.neige {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.portrait-entree{
+    position : absolute;
+    width: 300px;
+    animation : 3s arriveeAmiral;
+    animation-fill-mode: forwards;
+
+}
+.scene-exploration {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 27px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 10;
 }
 
-.boite-dialogue {
+.scene-exploration__flou {
     position: absolute;
-    bottom: 2rem;
-    left: 5%;
-    right: 5%;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(30px);
+    transform: scale(1.1);
+}
+
+.scene-exploration--nuit {
+    filter: brightness(0.5);
+}
+
+@keyframes arriveeAmiral {
+    from {
+        /*position lointaine + minuscule */ 
+        top: 1%;
+        left: 40%; 
+        transform: scale(0.5);
+    }
+    to {
+        /*position finale + taille normale*/
+        top : 60%;
+        left: 30%;
+        transform: scale(1);
+    }
+}
+
+@keyframes lueurYeux {
+    0%   { opacity: 0.6; }
+    15%  { opacity: 1; }
+    30%  { opacity: 0.6; }
+    45%  { opacity: 1; }
+    55%  { opacity: 0.15; }
+    57%  { opacity: 1; }
+    59%  { opacity: 0.1; }
+    61%  { opacity: 1; }
+    63%  { opacity: 0.1; }
+    65%  { opacity: 1; }
+    67%  { opacity: 0.1; }
+    69%  { opacity: 1; }
+    71%  { opacity: 0.1; }
+    73%  { opacity: 1; }
+    78%  { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@keyframes secousse {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-6px); }
+}
+
+@keyframes tomber {
+    from { top: -10px; }
+    to { top: 100%; }
 }
