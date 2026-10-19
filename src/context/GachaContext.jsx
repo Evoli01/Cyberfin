@@ -18,12 +18,20 @@ export function GachaProvider({ children }) {
     //Compteur de Bulles (monaie du jeu)
     const [bulles, setBulles] = useState(0);
 
+    //personnage depuis l'api
+    const [personnages, setPersonnages] = useState([]);
+
+    //joueurconnecté? 
+    const [joueurConnecte, setJoueurConnecte] = useState(null);
+
     //Charger depuis localstorage au démarrage
     useEffect(() => {
         const inventaireFromStorage = localStorage.getItem("inventaire");
         const historiqueFromStorage = localStorage.getItem("historique");
         const pityCounterFromStorage = localStorage.getItem("pityCounter");
         const bullesFromStorage = localStorage.getItem("bulles");
+        const joueurConnecteFromStorage=localStorage.getItem("joueurconnecte");
+
             if (bullesFromStorage) {setBulles(JSON.parse(bullesFromStorage));}
 
         if (inventaireFromStorage) {
@@ -48,6 +56,8 @@ export function GachaProvider({ children }) {
         }
         if (pityCounterFromStorage) {setPityCounter(JSON.parse(pityCounterFromStorage));}
 
+        if (joueurConnecteFromStorage) {setJoueurConnecte(JSON.parse(joueurConnecteFromStorage))};
+
     }, []);
 
     //Sauvegarder inventaire dans localstorage à chaque changement
@@ -70,6 +80,18 @@ export function GachaProvider({ children }) {
         localStorage.setItem("bulles", JSON.stringify(bulles));
     }, [bulles]);
 
+    //sauvegarder état connexion joueur dans localstorage a chaque changement
+    useEffect(() => {
+        localStorage.setItem("joueurconnecte", JSON.stringify(joueurConnecte));
+    }, [joueurConnecte]);
+
+    // Liste des personnage disponible au lancement uniquement
+    useEffect (() => {
+    fetch ("http://localhost:5080/Personnages")
+     .then(reponse=>reponse.json())
+     .then(donnees => setPersonnages(donnees));
+    },[]);
+
     //ajouter un tirage depuis accueil
     const ajouterTirage = (personnage) => {
         const entree = {
@@ -91,7 +113,7 @@ export function GachaProvider({ children }) {
     };
 
     return (
-        <GachaContext.Provider value={{inventaire, historique, ajouterTirage, stats, pityCounter, setPityCounter,carteDuJour, bulles, setBulles}}>
+        <GachaContext.Provider value={{inventaire, historique, ajouterTirage, stats, pityCounter, setPityCounter,carteDuJour, bulles, setBulles, personnages, joueurConnecte, setJoueurConnecte}}>
             {children}
         </GachaContext.Provider>
     );

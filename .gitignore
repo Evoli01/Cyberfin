@@ -25,3 +25,6 @@ dist-ssr
 
 # Fichier brouillon pour les exercices d'apprentissage
 src/pages/exercice.jsx
+
+# Backend C#/.NET (projet separe, pas encore decide si meme depot Git)
+CyberfinApi/
